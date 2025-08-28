@@ -31,6 +31,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \App\Models\Lab|null $lab
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Loan> $loans
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PasswordHelpTicket> $passwordHelpTickets
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TicketsPassword> $ticketsPasswords
 
  * 
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -112,6 +113,22 @@ class User extends Authenticatable
     public function passwordHelpTickets(): HasMany
     {
         return $this->hasMany(PasswordHelpTicket::class);
+    }
+
+    /**
+     * Get all tickets password for this user.
+     */
+    public function ticketsPasswords(): HasMany
+    {
+        return $this->hasMany(TicketsPassword::class);
+    }
+
+    /**
+     * Get all tickets password handled by this user.
+     */
+    public function handledTicketsPasswords(): HasMany
+    {
+        return $this->hasMany(TicketsPassword::class, 'handler_id');
     }
 
     /**
